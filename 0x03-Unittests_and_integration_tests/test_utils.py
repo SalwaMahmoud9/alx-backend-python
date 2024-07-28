@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""A module for testing the utils module.
+"""tests_utils.
 """
 import unittest
 from typing import Dict, Tuple, Union
@@ -14,7 +14,7 @@ from utils import (
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    """Tests the `access_nested_map` function."""
+    """TestAccessNestedMap."""
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
@@ -26,7 +26,7 @@ class TestAccessNestedMap(unittest.TestCase):
             path: Tuple[str],
             expected: Union[Dict, int],
             ) -> None:
-        """Tests `access_nested_map`'s output."""
+        """test_access_nested_map."""
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
     @parameterized.expand([
@@ -39,13 +39,13 @@ class TestAccessNestedMap(unittest.TestCase):
             path: Tuple[str],
             exception: Exception,
             ) -> None:
-        """Tests `access_nested_map`'s exception raising."""
+        """test_access_nested_map_exception."""
         with self.assertRaises(exception):
             access_nested_map(nested_map, path)
 
 
 class TestGetJson(unittest.TestCase):
-    """Tests the `get_json` function."""
+    """TestGetJson."""
     @parameterized.expand([
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False}),
@@ -55,7 +55,7 @@ class TestGetJson(unittest.TestCase):
             test_url: str,
             test_payload: Dict,
             ) -> None:
-        """Tests `get_json`'s output."""
+        """test_get_json."""
         attrs = {'json.return_value': test_payload}
         with patch("requests.get", return_value=Mock(**attrs)) as req_get:
             self.assertEqual(get_json(test_url), test_payload)
@@ -63,9 +63,9 @@ class TestGetJson(unittest.TestCase):
 
 
 class TestMemoize(unittest.TestCase):
-    """Tests the `memoize` function."""
+    """TestMemoize."""
     def test_memoize(self) -> None:
-        """Tests `memoize`'s output."""
+        """test_memoize."""
         class TestClass:
             def a_method(self):
                 return 42
